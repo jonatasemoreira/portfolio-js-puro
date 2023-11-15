@@ -117,7 +117,7 @@ const skills = [
   },
   {
     nome: "HTML",
-    porcentagem: "30",
+    porcentagem: "90",
   },
   {
     nome: "CSS",
@@ -188,7 +188,7 @@ const projects = [
   {
     nome: 'Projeto 4',
     image: 'https://placehold.co/200x150',
-    link: 'https://jonatasemoreira/github.com'
+    link: '#'
   },
 ];
 

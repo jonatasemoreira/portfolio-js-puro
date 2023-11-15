@@ -45,8 +45,8 @@ section {
     text-align: center;
 }
 .logo img {
-    width: 200px;
-    margin: 2rem auto;
+    width: 150px;
+    margin: 3rem auto 0.5rem;
     border-radius: 50%;
 }
 .navbar {
@@ -372,7 +372,13 @@ a {
     }.redes-sociais ul li a i {
         font-size: 30px;
     }
+    .curriculo-icon {
+        font-size: 30px;
+    }
     .footer-container {
         margin-bottom: 2rem;
+    }
+    .unidade-skill img {
+        max-width: 100%;
     }
 }
