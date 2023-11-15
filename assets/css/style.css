@@ -1,22 +1,22 @@
 * {
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
+    box-sizing: border-box;
 }
 /*HTML*/
 html {
     scroll-behavior: smooth;
 }
-/*BODY DO HTML*/
+/*BODY*/
 body {
-    overflow-x: hidden;
     display: flex;
     color: white;
     background-image: url(../img/1328680.png);
     background-position: center;
     background-size: cover;
+    overflow-x: hidden;
 }
-/*HEADER DO BODY*/
+/*HEADER*/
 header {
     position: fixed;
     top: 0;
@@ -26,7 +26,7 @@ header {
     background-color: transparent;
     box-shadow: 1px 1px 5px silver;
 }
-/*MAIN DO BODY*/
+/*MAIN*/
 main {
     position: absolute;
     top: 0;
@@ -34,13 +34,11 @@ main {
     width: calc(100% - 35%);
     text-align: center;
 }
-/*SECTION DO MAIN*/
 section {
     padding: 1rem 0.5rem;
     margin: 2rem auto;
     border-radius: 1rem;
 }
-/*LOGO*/
 .logo {
     width: 100%;
     height: 40%;
@@ -51,7 +49,6 @@ section {
     margin: 2rem auto;
     border-radius: 50%;
 }
-/*NAVBAR*/
 .navbar {
     width: 100%;
     height: 60%;
@@ -66,23 +63,22 @@ li {
 .navbar nav ul li a {
     text-decoration: none;
     color: white;
-    font-size: 25px;
+    font-size: 20px;
 }
 .navbar nav ul li a:hover {
     color: silver;
 }
-/*EFEITO SCROLL REVEAL*/
 .card {
     transform: translateX(400%);
     transition: transform 0.4s ease;
 }
-.card:nth-of-type(even){
+.card:nth-of-type(even) {
     transform: translateX(-400%);
 }
 .card.show {
     transform: translateX(0%);
 }
-/*BOTAO VOLTAR AO TOPO*/
+/*BOTAO DE SUBIR TOPO*/
 .btn-back-top button {
     display: none;
     position: fixed;
@@ -98,7 +94,7 @@ li {
     cursor: pointer;
     z-index: 2;
 }
-/*MENU HAMBURGUER MOBILE*/
+/*MENU MOBILE*/
 .menu-mobile {
     display: none;
     position: fixed;
@@ -138,10 +134,7 @@ li {
     background-position: center;
     background-size: cover;
 }
-
-
-
-/*home-container*/
+/*HOME*/
 .home-container {
     display: flex;
     padding-top: 2rem;
@@ -157,11 +150,7 @@ li {
     width: 250px;
     margin-bottom: 2rem;
 }
-.footer-container {
-    min-height: 10vh;
-    line-height: 10vh;
-}
-/*REDE SOCIAL*/
+/*REDES SOCIAIS*/
 .redes-sociais ul {
     display: flex;
     justify-content: space-around;
@@ -170,6 +159,26 @@ li {
 .redes-sociais p {
     text-align: center;
 }
+.redes-sociais ul li a {
+    color: white;
+}
+.redes-sociais ul li a i {
+    font-size: 45px;
+    color: white;
+}
+.redes-sociais ul li a i:hover, 
+.curriculo-icon:hover {
+    color: silver;
+    transition: 0.5s;
+}
+.redes-sociais ul li a i:active,
+.curriculo-icon:active {
+    transform: scale(0.8);
+}
+.curriculo-icon {
+    font-size: 40px;
+}
+
 /*ABOUT ME*/
 .about-container {
     display: flex;
@@ -184,8 +193,7 @@ li {
     text-align: justify;
     margin: 1rem auto;
 }
-
-/* SKILLS */
+/*SKILLS*/
 .skills-container {
     padding: 20px;
     min-height: 70vh;
@@ -211,17 +219,15 @@ li {
     height: 100%;
     background-color: #4CAF50;
     animation: progress-fill 3s ease-in-out;
-    /* Mantém o estilo no final da animação */
     animation-fill-mode: forwards;
     box-shadow: 1px 1px 15px #4CAF50;
 }
 @keyframes progress-fill {
     0% {
-            width: 0%;
+        width: 0%;
     }
 }
-
-/*PROJETOS*/
+/*PROJECTS*/
 .navProjects {
     width: 100%;
     margin: 2rem auto;
@@ -239,15 +245,14 @@ a {
 .unidade-skill img {
     max-width: 400px;
     max-height: 150px;
-} 
+}
 .unidade-skill a {
     color: white;
 }
 .unidade-skill a:active {
     color: red;
 }
-
-/* CONTATO */
+/*CONTACT*/
 .contact-container {
     min-height: 50vh;
 }
@@ -295,38 +300,27 @@ a {
 .mensagem-enviada {
     color: red;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*FOOTER*/
+.footer-container {
+    min-height: 10vh;
+    line-height: 10vh;
+    margin-bottom: 5rem;
+}
 
 /*RESPONSIVO*/
-@media(max-width:768px){
-    /*HEADER*/
+@media(max-width:768px) {
     header {
         left: 0;
         width: 100%;
         z-index: 2;
         display: none;
     }
-    /*LOGO*/
     .logo {
         height: 30%;
     }
     .logo h1 {
         line-height: 30vh;
     }
-    /*NAVBAR*/
     .navbar {
         height: 70%;
     }
@@ -349,14 +343,13 @@ a {
     .foto-home img {
         margin: 1rem auto;
     }
+    /*REDE SOCIAL*/
     .redes-sociais ul {
         margin-bottom: 2rem;
     }
-    /*MENU MOBILE*/
     .menu-mobile {
         display: block;
     }
-    /*ABOUT ME*/
     .about-container {
         display: flex;
         flex-direction: column;
@@ -364,7 +357,6 @@ a {
     .about-container div {
         width: 100%
     }
-    /*PROJETOS*/
     .navProjects {
         width: 100%;
         flex-direction: column;
@@ -377,6 +369,10 @@ a {
     }
     .unidade-skill img {
         max-height: none;
-    } 
-    
+    }.redes-sociais ul li a i {
+        font-size: 30px;
+    }
+    .footer-container {
+        margin-bottom: 2rem;
+    }
 }

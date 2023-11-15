@@ -4,50 +4,87 @@ window.onscroll = function() {
 };
 
 function scrollFunction() {
+  const backTopButton = document.getElementById("back-top");
   if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    document.getElementById("back-top").style.display = "block";
-    document.getElementById("back-top").removeAttribute("disabled");
+    backTopButton.style.display = "block";
+    backTopButton.removeAttribute("disabled");
   } else {
-    document.getElementById("back-top").style.display = "none";
-    document.getElementById("back-top").setAttribute("disabled", "disabled");
+    backTopButton.style.display = "none";
+    backTopButton.setAttribute("disabled", "disabled");
   }
 }
+
 function scrollToTop() {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
 }
 
+//FUNÇÃO MAQUINA DE ESCREVER NO SECTION HOME
+function maquinaEscrever() {
+  const strings = ['Frontend', 'Backend', 'Fullstack'];
+  const texto = document.getElementById('maquina-de-escrever');
+  
+  let stringAtual = 0;
+  let index = 0;
+  let apagando = false;
+
+  function escrever() {
+    if (index < strings[stringAtual].length && !apagando) {
+      texto.innerHTML += strings[stringAtual].charAt(index);
+      index++;
+      setTimeout(escrever, 100);
+    } else if (apagando && index >= 0) {
+      texto.innerHTML = strings[stringAtual].substring(0, index);
+      index--;
+      setTimeout(escrever, 100);
+    } else {
+      apagando = true;
+      setTimeout(escrever, 500);
+    }
+
+    if (index < 0) {
+      apagando = false;
+      stringAtual++;
+      if (stringAtual >= strings.length) {
+        stringAtual = 0;
+      }
+      index = 0;
+    }
+  }
+  escrever();
+}
+
+maquinaEscrever();
+
+
 // MENU HAMBURGUER
-const botaoMobile = document.getElementById('menu-hamburguer');
+const menuHamburguerButton = document.getElementById('menu-hamburguer');
 const header = document.getElementById('header');
-const itensNav = document.querySelectorAll('.nav-item');
+const navItems = document.querySelectorAll('.nav-item');
 const iconMobile = document.getElementById('icon-mobile');
 
-botaoMobile.addEventListener('click', () => {
-  // Exibir navbar
+menuHamburguerButton.addEventListener('click', () => {
   if (header.style.display === 'none') {
     header.style.display = 'block';
     header.classList.add('show-mobile');
-
-    // Mudar o ícone de fa-bars para fa-times
     iconMobile.classList.replace('fa-bars', 'fa-times');
   } else {
     header.style.display = 'none';
     header.classList.remove('show-mobile');
-
-    // Mudar o ícone de fa-times para fa-bars
     iconMobile.classList.replace('fa-times', 'fa-bars');
   }
 });
 
-itensNav.forEach(item => {
-  item.addEventListener('click', () => {
-    header.style.display = 'none';
-    header.classList.remove('show-mobile');
-    botaoMobile.classList.replace('fa-times', 'fa-bars');
-    iconMobile.classList.replace('fa-times', 'fa-bars');
+if (window.innerWidth <= 768) {
+  navItems.forEach(item => {
+    item.addEventListener('click', () => {
+      header.style.display = 'none';
+      header.classList.remove('show-mobile');
+      menuHamburguerButton.classList.replace('fa-times', 'fa-bars');
+      iconMobile.classList.replace('fa-times', 'fa-bars');
+    });
   });
-});
+}
 
 // SCROLL REVEAL
 const cards = document.querySelectorAll('.card');
@@ -68,8 +105,8 @@ function checkBoxes() {
   });
 }
 
-//SKILLS
-const arraySkills = [
+// SKILLS
+const skills = [
   {
     nome: "JavaScript",
     porcentagem: "80",
@@ -100,34 +137,39 @@ const arraySkills = [
   }
 ];
 
-const navSkills = document.getElementById('skill-nav');
-const progressBarDelay = 500; // Atraso (em milissegundos) entre a animação de cada barra de progresso
+const skillNav = document.getElementById('skill-nav');
+const progressBarDelay = 500;
 
-const postSkills = () => {
-  arraySkills.forEach((skill) => {
-    const skillItem = document.createElement('li');
-    skillItem.innerHTML = `
-      <div class="skill-container">
-        <p>${skill.nome}</p>
-        <div class="skill-progress">
-          <div class="progress-fill"></div>
-        </div>
+function createSkillNavItem(skill) {
+  const skillNavItem = document.createElement('li');
+  skillNavItem.innerHTML = `
+    <div class="skill-container">
+      <p>${skill.nome}</p>
+      <div class="skill-progress">
+        <div class="progress-fill"></div>
       </div>
-    `;
-    navSkills.appendChild(skillItem);
+    </div>
+  `;
 
-    const progressFill = skillItem.querySelector('.progress-fill');
-    const width = skill.porcentagem;
-    setTimeout(() => {
-      progressFill.style.width = `${width}%`;
-    }, progressBarDelay);
+  const progressFill = skillNavItem.querySelector('.progress-fill');
+  const width = skill.porcentagem;
+  setTimeout(() => {
+    progressFill.style.width = `${width}%`;
+  }, progressBarDelay);
+
+  return skillNavItem;
+}
+
+function renderSkills() {
+  skills.forEach((skill) => {
+    skillNav.appendChild(createSkillNavItem(skill));
   });
-};
-postSkills();
+}
 
+renderSkills();
 
 // PROJETOS
-const arrayProjects = [
+const projects = [
   {
     nome: 'Filmes React.js',
     image: 'assets/img/filmesReact.png',
@@ -148,40 +190,44 @@ const arrayProjects = [
     image: 'https://placehold.co/200x150',
     link: 'https://jonatasemoreira/github.com'
   },
-
 ];
+
 const navProjects = document.getElementById('navProjects');
-const postProjects = () => {
-  arrayProjects.forEach((project) => {
-    const containerProject = document.createElement('div');
-    const nomeProject = document.createElement('p');
-    const imgProject = document.createElement('img');
-    const linkProject = document.createElement('a');
 
-    //adicionando classes
-    containerProject.classList.add('unidade-skill');
+function createProjectItem(project) {
+  const projectItem = document.createElement('div');
 
-    nomeProject.textContent = project.nome;
-    imgProject.src = project.image;
-    linkProject.textContent = "Acessar";
-    linkProject.href = project.link;
+  const nomeProject = document.createElement('p');
+  nomeProject.textContent = project.nome;
 
-    containerProject.appendChild(nomeProject);
-    containerProject.appendChild(imgProject);
-    containerProject.appendChild(linkProject);
-    
+  const imgProject = document.createElement('img');
+  imgProject.src = project.image;
 
-    navProjects.appendChild(containerProject);
+  const linkProject = document.createElement('a');
+  linkProject.textContent = "Acessar";
+  linkProject.href = project.link;
+
+  projectItem.classList.add('unidade-skill');
+  projectItem.appendChild(nomeProject);
+  projectItem.appendChild(imgProject);
+  projectItem.appendChild(linkProject);
+
+  return projectItem;
+}
+
+function renderProjects() {
+  projects.forEach((project) => {
+    navProjects.appendChild(createProjectItem(project));
   });
-};
+}
 
-postProjects();
+renderProjects();
 
-//CONTATO
+// CONTATO
 const form = document.querySelector('form');
 const submitButton = document.getElementById('btn-enviar-contato');
 
-function limparCampos() {
+function clearFields() {
   const nameInput = document.getElementById('name');
   const emailInput = document.getElementById('email');
   const messageInput = document.getElementById('message');
@@ -191,31 +237,31 @@ function limparCampos() {
   messageInput.value = '';
 }
 
-function enviarMensagem(event) {
-  event.preventDefault(); // Impede o envio padrão do formulário
+function sendMessage(event) {
+  event.preventDefault();
 
   const nameInput = document.getElementById('name');
   const emailInput = document.getElementById('email');
   const messageInput = document.getElementById('message');
 
   if (nameInput.value === '' || emailInput.value === '' || messageInput.value === '') {
-    return; // Se algum campo estiver vazio, não faz nada
+    return;
   }
 
-  const mensagemEnviada = document.createElement('div');
-  mensagemEnviada.textContent = 'Mensagem enviada!';
-  mensagemEnviada.className = 'mensagem-enviada';
+  const successMessage = document.createElement('div');
+  successMessage.textContent = 'Mensagem enviada!';
+  successMessage.className = 'success-message';
 
-  form.parentNode.insertBefore(mensagemEnviada, form.nextSibling);
+  form.parentNode.insertBefore(successMessage, form.nextSibling);
 
   setTimeout(() => {
-    mensagemEnviada.style.transform = 'translateX(-100%)';
-    mensagemEnviada.style.opacity = '0';
+    successMessage.style.transform = 'translateX(-100%)';
+    successMessage.style.opacity = '0';
     setTimeout(() => {
-      mensagemEnviada.remove();
-      limparCampos(); // Limpa os campos de input
+      successMessage.remove();
+      clearFields();
     }, 1000);
   }, 3000);
 }
 
-form.addEventListener('submit', enviarMensagem);
+form.addEventListener('submit', sendMessage);
